@@ -26,40 +26,38 @@ def draw_ellipse(sym: str, color_id: int, posx: int, posy: int, radx: int, rady:
     """Draws a ellipse on a canvas"""
     x = 0
     y = rady
-    d1 = ((rady * rady) - (radx * radx * rady) + (0.25 * radx * radx))
-    dx = 2 * rady * rady * x
-    dy = 2 * radx * radx * y
-    while (dx < dy):
+    d1 = rady**2 - radx**2 * rady + 0.25 * radx**2
+    dx = x * 2 * rady**2
+    dy = y * 2 * radx**2
+    while dx < dy:
         draw_pixel(sym, color_id, x+posx, y+posy)
         draw_pixel(sym, color_id, -x+posx, y+posy)
         draw_pixel(sym, color_id, x+posx, -y+posy)
         draw_pixel(sym, color_id, -x+posx, -y+posy)
-        if (d1 < 0):
+        if d1 < 0:
             x += 1
-            dx = dx + (2 * rady * rady)
-            d1 = d1 + dx + (rady * rady)
+            dx += 2 * rady**2
+            d1 += dx + rady**2
         else:
             x += 1
             y -= 1
-            dx = dx + (2 * rady * rady)
-            dy = dy - (2 * radx * radx)
-            d1 = d1 + dx - dy + (rady * rady)
-    d2 = (((rady * rady) * ((x + 0.5) * (x + 0.5))) + ((radx * radx) * ((y - 1) * (y - 1))) - (radx * radx * rady * rady))
-    while (y >= 0):
+            dx += 2 * rady**2
+            dy -= 2 * radx**2
+            d1 += dx - dy + rady**2
+    d2 = (rady**2 * (x + 0.5)**2) + (radx**2 * (y - 1)**2) - (radx**2 * rady**2)
+    for y in range(y, -1, -1):
         draw_pixel(sym, color_id, x+posx, y+posy)
         draw_pixel(sym, color_id, -x+posx, y+posy)
         draw_pixel(sym, color_id, x+posx, -y+posy)
         draw_pixel(sym, color_id, -x+posx, -y+posy)
-        if (d2 > 0):
-            y -= 1
-            dy = dy - (2 * radx * radx)
-            d2 = d2 + (radx * radx) - dy
+        if d2 > 0:
+            dy -= 2 * radx**2
+            d2 += radx**2 - dy
         else:
-            y -= 1
             x += 1
-            dx = dx + (2 * rady * rady)
-            dy = dy - (2 * radx * radx)
-            d2 = d2 + dx - dy + (radx * radx)
+            dx += 2 * rady**2
+            dy -= 2 * radx**2
+            d2 += dx - dy + radx**2
 
 def draw_line(sym: str, color_id: int, x0: int, y0: int, x1: int, y1: int):
     """Draws a line on a canvas"""
