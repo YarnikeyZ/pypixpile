@@ -1,15 +1,15 @@
-def check_collision(pos: int, size: int, speed: int, canvas: int):
+def check_collision(pos1: int, pos2: int, size1: int, size2: int, speed1: int):
     """Checks collisions with the edge of other obj."""
-    pos += speed
-    if pos + size >= canvas:
-        speed = -speed
-        pos = canvas - size
-        return pos, speed, True
-    elif pos <= 0:
-        speed = -speed
-        pos = 0
-        return pos, speed, True
-    return pos, speed, False
+    pos1 += speed1
+    if pos1 + size1 >= pos2 + size2:
+        speed1 = -speed1
+        pos1 = pos1 - size1
+        return pos1, speed1, True
+    elif pos1 <= pos2:
+        speed1 = -speed1
+        pos1 = 0
+        return pos1, speed1, True
+    return pos1, speed1, False
 
 def draw_pixel(sym: str, color_id: int, posx: int, posy: int):
     """Draws a pixel on a canvas"""
