@@ -4,7 +4,7 @@ from pypixpile.pypixpile import *
 
 def render(fps: int):
     canvas = list(gts())
-    canvas = (canvas[0]-1, canvas[1]-1)
+    canvas = (canvas[0]-1, canvas[1])
     """Renders an "image" to the screen."""
     try:
         while True:
