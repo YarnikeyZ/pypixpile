@@ -64,13 +64,6 @@ def drawRectangle(sym='', colorIdFg=0, colorIdBg=0, posX=0, posY=0, geomX=0, geo
     for geomPosY in range(0, geomY):
         print(f"{moveCursor(posX, posY+geomPosY)}{sym+moveCursor(posX+geomX-1, posY+geomPosY)+sym if not fill else line}")
     print(f"{moveCursor(posX, posY+geomY-1)}{line}") if not fill else None
-    
-
-    # print(f"{moveCursor(posX, posY)}{colorThem(colorIdFg, colorIdBg)}{line if not fill else ''}", end="")
-    # for geomPosY in range(0, geomY+1):
-    #     print(f"{moveCursor(posX, posY+geomPosY)}{line if fill else sym+moveCursor(posX+geomX, posY+geomPosY)+sym}", end="")
-    # print(f"{moveCursor(posX, posY+geomY)}{line if not fill else ''}", end="")
-    
 
 def drawEllipse(sym='', colorIdFg=0, colorIdBg=0, posX=0, posY=0, radX=0, radY=0, fill=True):
     """Draws a ellipse on a canvas"""
