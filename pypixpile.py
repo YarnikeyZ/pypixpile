@@ -64,6 +64,7 @@ def drawRectangle(sym='', colorIdFg=0, colorIdBg=0, posX=0, posY=0, geomX=0, geo
     for geomPosY in range(0, geomY):
         print(f"{moveCursor(posX, posY+geomPosY)}{sym+moveCursor(posX+geomX-1, posY+geomPosY)+sym if not fill else line}")
     print(f"{moveCursor(posX, posY+geomY-1)}{line}") if not fill else None
+    
 
 def drawEllipse(sym='', colorIdFg=0, colorIdBg=0, posX=0, posY=0, radX=0, radY=0, fill=True):
     """Draws a ellipse on a canvas"""
@@ -112,33 +113,18 @@ def drawEllipse(sym='', colorIdFg=0, colorIdBg=0, posX=0, posY=0, radX=0, radY=0
 
 def drawLine(sym='', colorIdFg=0, colorIdBg=0, x0=0, y0=0, x1=0, y1=0):
     """Draws a line on a canvas"""
-    steep = abs(y1 - y0) > abs(x1 - x0)
-
-    if steep:
-        temp = x0
-        x0 = y0
-        y0 = temp
-        temp = x1
-        x1 = y0
-        y0 = temp
-
-    if x0 > x1:
-        temp = x0
-        x0 = y0
-        y0 = temp
-        temp = x1
-        x1 = y0
-        y0 = temp
-
-    dX = x1 - x0
-    dY = abs(y1 - y0)
-    steepY = 1 if y0 < y1 else -1
+    dx = x1 - x0
+    dy = y1 - y0
+    if abs(dx) >= abs(dy):
+        length = abs(dx)
+    else:
+        length = abs(dy)
+    ddx = dx / length
+    ddy = dy / length
+    x = x0
     y = y0
-    error = dX / 2
-
-    for x in range(x0, x1):
-        drawPixel(sym, colorIdFg, colorIdBg, y if steep else x, x if steep else y)
-        error -= dY
-        if error < 0:
-            y += steepY
-            error += dX
+    drawPixel(sym, colorIdFg, colorIdBg, round(x), round(y))
+    for i in range(length):
+        x += ddx
+        y += ddy
+        drawPixel(sym, colorIdFg, colorIdBg, round(x), round(y))
