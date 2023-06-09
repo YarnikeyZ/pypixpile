@@ -60,9 +60,9 @@ def drawPixel(sym='', colorIdFg=0, colorIdBg=0, posX=0, posY=0):
 def drawRectangle(sym='', colorIdFg=0, colorIdBg=0, posX=0, posY=0, geomX=0, geomY=0, fill=True):
     """Draws a rectangle on a canvas"""
     print(f"{moveCursor(posX, posY)}{colorThem(colorIdFg, colorIdBg)}")
-    line = sym*(geomX+1)
+    line = sym*(geomX)
     if fill:
-        for g_y in range(geomY):
+        for g_y in range(geomY+1):
             print(f"{moveCursor(posX, posY+g_y)}{line}")
     else:
         print(f"{moveCursor(posX, posY)}{sym*geomX}")
